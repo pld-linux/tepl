@@ -5,29 +5,30 @@
 Summary:	Tepl - Text editor product line
 Summary(pl.UTF-8):	Tepl (Text editor product line) - linia produkcyjna edytorów
 Name:		tepl
-Version:	2.99.2
+Version:	4.2.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/tepl/2.99/%{name}-%{version}.tar.xz
-# Source0-md5:	2340f04086fdd565925c97da0f880ffa
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/tepl/4.2/%{name}-%{version}.tar.xz
+# Source0-md5:	70f4d32407b58369ef803205c4083a17
 URL:		https://wiki.gnome.org/Projects/Tepl
+BuildRequires:	amtk-devel >= 5.0
 BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.14
 BuildRequires:	gettext-tools >= 0.19.4
 BuildRequires:	glib2-devel >= 1:2.52
 BuildRequires:	gobject-introspection-devel >= 1.42.0
-BuildRequires:	gtk+3-devel >= 3.20
+BuildRequires:	gtk+3-devel >= 3.22
 BuildRequires:	gtk-doc >= 1.25
-BuildRequires:	gtksourceview3-devel >= 3.22
+BuildRequires:	gtksourceview4-devel >= 4.0
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	libxml2-devel >= 1:2.5
 BuildRequires:	pkgconfig
 BuildRequires:	uchardet-devel
 #BuildRequires:	vala
 Requires:	glib2 >= 1:2.52
-Requires:	gtk+3 >= 3.20
-Requires:	gtksourceview3 >= 3.22
+Requires:	gtk+3 >= 3.22
+Requires:	gtksourceview4 >= 4.0
 Requires:	libxml2 >= 1:2.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -51,9 +52,10 @@ Summary:	Header files for Tepl library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Tepl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	amtk-devel >= 5.0
 Requires:	glib2-devel >= 1:2.52
-Requires:	gtk+3-devel >= 3.20
-Requires:	gtksourceview3-devel >= 3.22
+Requires:	gtk+3-devel >= 3.22
+Requires:	gtksourceview4-devel >= 4.0
 Requires:	libxml2-devel >= 1:2.5
 Requires:	uchardet-devel
 # temporary? no vapi in 2.99.2
@@ -129,7 +131,7 @@ rm -rf $RPM_BUILD_ROOT
 # obsoleted by pkg-config
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/lib*.la
 
-%find_lang tepl-3
+%find_lang tepl-4
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -137,41 +139,33 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files -f tepl-3.lang
+%files -f tepl-4.lang
 %defattr(644,root,root,755)
 %doc AUTHORS NEWS README
-%attr(755,root,root) %{_libdir}/libamtk-3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libamtk-3.so.0
-%attr(755,root,root) %{_libdir}/libtepl-3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libtepl-3.so.0
-%{_libdir}/girepository-1.0/Amtk-3.typelib
-%{_libdir}/girepository-1.0/Tepl-3.typelib
+%attr(755,root,root) %{_libdir}/libtepl-4.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libtepl-4.so.0
+%{_libdir}/girepository-1.0/Tepl-4.typelib
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libamtk-3.so
-%attr(755,root,root) %{_libdir}/libtepl-3.so
-%{_includedir}/amtk-3
-%{_includedir}/tepl-3
-%{_datadir}/gir-1.0/Amtk-3.gir
-%{_datadir}/gir-1.0/Tepl-3.gir
-%{_pkgconfigdir}/amtk-3.pc
-%{_pkgconfigdir}/tepl-3.pc
+%attr(755,root,root) %{_libdir}/libtepl-4.so
+%{_includedir}/tepl-4
+%{_datadir}/gir-1.0/Tepl-4.gir
+%{_pkgconfigdir}/tepl-4.pc
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libamtk-3.a
-%{_libdir}/libtepl-3.a
+%{_libdir}/libtepl-4.a
 %endif
 
 %if 0
 %files -n vala-tepl
 %defattr(644,root,root,755)
-%{_datadir}/vala/vapi/tepl-3.deps
-%{_datadir}/vala/vapi/tepl-3.vapi
+%{_datadir}/vala/vapi/tepl-4.deps
+%{_datadir}/vala/vapi/tepl-4.vapi
 %endif
 
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/tepl-3.0
+%{_gtkdocdir}/tepl-4.0
