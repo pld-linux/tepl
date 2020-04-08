@@ -5,17 +5,17 @@
 Summary:	Tepl - Text editor product line
 Summary(pl.UTF-8):	Tepl (Text editor product line) - linia produkcyjna edytorów
 Name:		tepl
-Version:	4.2.1
+Version:	4.4.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/tepl/4.2/%{name}-%{version}.tar.xz
-# Source0-md5:	d4acf3268336f85ae76f1753984b8d1b
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/tepl/4.4/%{name}-%{version}.tar.xz
+# Source0-md5:	013ee8aae178f75cc74e05fac70786b3
 URL:		https://wiki.gnome.org/Projects/Tepl
 BuildRequires:	amtk-devel >= 5.0
 BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.14
-BuildRequires:	gettext-tools >= 0.19.4
+BuildRequires:	gettext-tools >= 0.19.6
 BuildRequires:	glib2-devel >= 1:2.52
 BuildRequires:	gobject-introspection-devel >= 1.42.0
 BuildRequires:	gtk+3-devel >= 3.22
