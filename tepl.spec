@@ -1,32 +1,33 @@
 #
 # Conditional build:
-%bcond_without	static_libs	# don't build static libraries
+%bcond_without	apidocs		# API documentation
+%bcond_without	static_libs	# static library
 #
 Summary:	Tepl - Text editor product line
 Summary(pl.UTF-8):	Tepl (Text editor product line) - linia produkcyjna edytorów
 Name:		tepl
-Version:	4.4.0
+Version:	5.0.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/tepl/4.4/%{name}-%{version}.tar.xz
-# Source0-md5:	013ee8aae178f75cc74e05fac70786b3
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/tepl/5.0/%{name}-%{version}.tar.xz
+# Source0-md5:	c31271dd4b039b02676f82b2a853ad2c
 URL:		https://wiki.gnome.org/Projects/Tepl
 BuildRequires:	amtk-devel >= 5.0
-BuildRequires:	autoconf >= 2.64
-BuildRequires:	automake >= 1:1.14
 BuildRequires:	gettext-tools >= 0.19.6
-BuildRequires:	glib2-devel >= 1:2.52
+BuildRequires:	glib2-devel >= 1:2.64
 BuildRequires:	gobject-introspection-devel >= 1.42.0
 BuildRequires:	gtk+3-devel >= 3.22
-BuildRequires:	gtk-doc >= 1.25
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.25}
 BuildRequires:	gtksourceview4-devel >= 4.0
-BuildRequires:	libtool >= 2:2.2.6
+BuildRequires:	libicu-devel
 BuildRequires:	libxml2-devel >= 1:2.5
+BuildRequires:	meson >= 0.53
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
-BuildRequires:	uchardet-devel
+BuildRequires:	rpmbuild(macros) >= 1.736
 #BuildRequires:	vala
-Requires:	glib2 >= 1:2.52
+Requires:	glib2 >= 1:2.64
 Requires:	gtk+3 >= 3.22
 Requires:	gtksourceview4 >= 4.0
 Requires:	libxml2 >= 1:2.5
@@ -53,11 +54,11 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Tepl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	amtk-devel >= 5.0
-Requires:	glib2-devel >= 1:2.52
+Requires:	glib2-devel >= 1:2.64
 Requires:	gtk+3-devel >= 3.22
 Requires:	gtksourceview4-devel >= 4.0
+Requires:	libicu-devel
 Requires:	libxml2-devel >= 1:2.5
-Requires:	uchardet-devel
 # temporary? no vapi in 2.99.2
 Obsoletes:	vala-tepl < 2.99.2
 
@@ -85,6 +86,9 @@ Summary(pl.UTF-8):	API języka Vala do biblioteki Tepl
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	vala
+%if "%{_rpmversion}" >= "4.6"
+BuildArch:	noarch
+%endif
 
 %description -n vala-tepl
 Vala API for Tepl library.
@@ -96,7 +100,7 @@ API języka Vala do biblioteki Tepl.
 Summary:	API documentation for Tepl library
 Summary(pl.UTF-8):	Dokumentacja API biblioteki Tepl
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -110,28 +114,18 @@ Dokumentacja API biblioteki Tepl.
 %setup -q
 
 %build
-# rebuild ac/am/lt for as-needed to work
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	--disable-silent-rules \
-	%{?with_static_libs:--enable-static} \
-	--with-html-dir=%{_gtkdocdir}
-%{__make}
+%meson build \
+	%{!?with_static_libs:--default-library=shared} \
+	%{?with_apidocs:-Dgtk_doc=true}
+
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%ninja_install -C build
 
-# obsoleted by pkg-config
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/lib*.la
-
-%find_lang tepl-4
+%find_lang tepl-5
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -139,33 +133,35 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files -f tepl-4.lang
+%files -f tepl-5.lang
 %defattr(644,root,root,755)
 %doc AUTHORS NEWS README
-%attr(755,root,root) %{_libdir}/libtepl-4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libtepl-4.so.0
-%{_libdir}/girepository-1.0/Tepl-4.typelib
+%attr(755,root,root) %{_libdir}/libtepl-5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libtepl-5.so.0
+%{_libdir}/girepository-1.0/Tepl-5.typelib
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libtepl-4.so
-%{_includedir}/tepl-4
-%{_datadir}/gir-1.0/Tepl-4.gir
-%{_pkgconfigdir}/tepl-4.pc
+%attr(755,root,root) %{_libdir}/libtepl-5.so
+%{_includedir}/tepl-5
+%{_datadir}/gir-1.0/Tepl-5.gir
+%{_pkgconfigdir}/tepl-5.pc
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libtepl-4.a
+%{_libdir}/libtepl-5.a
 %endif
 
 %if 0
 %files -n vala-tepl
 %defattr(644,root,root,755)
-%{_datadir}/vala/vapi/tepl-4.deps
-%{_datadir}/vala/vapi/tepl-4.vapi
+%{_datadir}/vala/vapi/tepl-5.deps
+%{_datadir}/vala/vapi/tepl-5.vapi
 %endif
 
+%if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/tepl-4.0
+%{_gtkdocdir}/tepl-5
+%endif
