@@ -6,12 +6,12 @@
 Summary:	Tepl - Text editor product line
 Summary(pl.UTF-8):	Tepl (Text editor product line) - linia produkcyjna edytorów
 Name:		tepl
-Version:	5.0.0
+Version:	5.0.1
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/tepl/5.0/%{name}-%{version}.tar.xz
-# Source0-md5:	c31271dd4b039b02676f82b2a853ad2c
+Source0:	https://download.gnome.org/sources/tepl/5.0/%{name}-%{version}.tar.xz
+# Source0-md5:	5b6b9e022de87ed804266d9edb0e0ff4
 URL:		https://wiki.gnome.org/Projects/Tepl
 BuildRequires:	amtk-devel >= 5.0
 BuildRequires:	gettext-tools >= 0.19.6
@@ -25,7 +25,7 @@ BuildRequires:	libxml2-devel >= 1:2.5
 BuildRequires:	meson >= 0.53
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 1.752
 #BuildRequires:	vala
 Requires:	glib2 >= 1:2.64
 Requires:	gtk+3 >= 3.22
@@ -86,9 +86,7 @@ Summary(pl.UTF-8):	API języka Vala do biblioteki Tepl
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	vala
-%if "%{_rpmversion}" >= "4.6"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description -n vala-tepl
 Vala API for Tepl library.
@@ -100,9 +98,7 @@ API języka Vala do biblioteki Tepl.
 Summary:	API documentation for Tepl library
 Summary(pl.UTF-8):	Dokumentacja API biblioteki Tepl
 Group:		Documentation
-%if "%{_rpmversion}" >= "4.6"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description apidocs
 API documentation for Tepl library.
