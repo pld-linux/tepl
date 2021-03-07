@@ -86,7 +86,7 @@ Summary(pl.UTF-8):	API języka Vala do biblioteki Tepl
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	vala
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description -n vala-tepl
 Vala API for Tepl library.
@@ -98,7 +98,7 @@ API języka Vala do biblioteki Tepl.
 Summary:	API documentation for Tepl library
 Summary(pl.UTF-8):	Dokumentacja API biblioteki Tepl
 Group:		Documentation
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description apidocs
 API documentation for Tepl library.
