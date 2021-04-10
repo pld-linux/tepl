@@ -6,12 +6,12 @@
 Summary:	Tepl - Text editor product line
 Summary(pl.UTF-8):	Tepl (Text editor product line) - linia produkcyjna edytorów
 Name:		tepl
-Version:	5.0.1
+Version:	6.00.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	https://download.gnome.org/sources/tepl/5.0/%{name}-%{version}.tar.xz
-# Source0-md5:	5b6b9e022de87ed804266d9edb0e0ff4
+Source0:	https://download.gnome.org/sources/tepl/6.00/%{name}-%{version}.tar.xz
+# Source0-md5:	08248e527cc87a4bf7300c04d1babcb9
 URL:		https://wiki.gnome.org/Projects/Tepl
 BuildRequires:	amtk-devel >= 5.0
 BuildRequires:	gettext-tools >= 0.19.6
@@ -25,6 +25,7 @@ BuildRequires:	libxml2-devel >= 1:2.5
 BuildRequires:	meson >= 0.53
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
 #BuildRequires:	vala
 Requires:	glib2 >= 1:2.64
@@ -121,7 +122,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %ninja_install -C build
 
-%find_lang tepl-5
+%find_lang tepl-6
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -129,35 +130,35 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files -f tepl-5.lang
+%files -f tepl-6.lang
 %defattr(644,root,root,755)
-%doc AUTHORS NEWS README
-%attr(755,root,root) %{_libdir}/libtepl-5.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libtepl-5.so.0
-%{_libdir}/girepository-1.0/Tepl-5.typelib
+%doc NEWS README.md
+%attr(755,root,root) %{_libdir}/libtepl-6.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libtepl-6.so.0
+%{_libdir}/girepository-1.0/Tepl-6.typelib
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libtepl-5.so
-%{_includedir}/tepl-5
-%{_datadir}/gir-1.0/Tepl-5.gir
-%{_pkgconfigdir}/tepl-5.pc
+%attr(755,root,root) %{_libdir}/libtepl-6.so
+%{_includedir}/tepl-6
+%{_datadir}/gir-1.0/Tepl-6.gir
+%{_pkgconfigdir}/tepl-6.pc
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libtepl-5.a
+%{_libdir}/libtepl-6.a
 %endif
 
 %if 0
 %files -n vala-tepl
 %defattr(644,root,root,755)
-%{_datadir}/vala/vapi/tepl-5.deps
-%{_datadir}/vala/vapi/tepl-5.vapi
+%{_datadir}/vala/vapi/tepl-6.deps
+%{_datadir}/vala/vapi/tepl-6.vapi
 %endif
 
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/tepl-5
+%{_gtkdocdir}/tepl-6
 %endif
