@@ -6,12 +6,12 @@
 Summary:	Tepl - Text editor product line
 Summary(pl.UTF-8):	Tepl (Text editor product line) - linia produkcyjna edytorów
 Name:		tepl
-Version:	6.00.0
-Release:	3
+Version:	6.0.1
+Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	https://download.gnome.org/sources/tepl/6.00/%{name}-%{version}.tar.xz
-# Source0-md5:	08248e527cc87a4bf7300c04d1babcb9
+Source0:	https://download.gnome.org/sources/tepl/6.0/%{name}-%{version}.tar.xz
+# Source0-md5:	25dca6791ded8025ef76a3ff6ce4f437
 URL:		https://wiki.gnome.org/Projects/Tepl
 BuildRequires:	amtk-devel >= 5.0
 BuildRequires:	gettext-tools >= 0.19.6
