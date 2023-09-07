@@ -6,21 +6,21 @@
 Summary:	Tepl - Text editor product line
 Summary(pl.UTF-8):	Tepl (Text editor product line) - linia produkcyjna edytorów
 Name:		tepl
-Version:	6.6.0
+Version:	6.8.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	https://download.gnome.org/sources/tepl/6.6/%{name}-%{version}.tar.xz
-# Source0-md5:	ed87621f305cc3c5dc8f582c56e1da40
+Source0:	https://download.gnome.org/sources/tepl/6.8/%{name}-%{version}.tar.xz
+# Source0-md5:	5d29b2c9032a1ba2d33ef9c9c9c7de79
 URL:		https://wiki.gnome.org/Projects/Tepl
-BuildRequires:	amtk-devel >= 5.0
 BuildRequires:	gettext-tools >= 0.19.6
-BuildRequires:	glib2-devel >= 1:2.64
+BuildRequires:	glib2-devel >= 1:2.74
 BuildRequires:	gobject-introspection-devel >= 1.42.0
 BuildRequires:	gsettings-desktop-schemas-devel
 BuildRequires:	gtk+3-devel >= 3.22
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.25}
-BuildRequires:	libgedit-gtksourceview-devel >= 299.0.1
+BuildRequires:	libgedit-amtk-devel >= 5.8
+BuildRequires:	libgedit-gtksourceview-devel >= 299.0.4
 BuildRequires:	libicu-devel
 BuildRequires:	libxml2-devel >= 1:2.5
 BuildRequires:	meson >= 0.64
@@ -29,9 +29,9 @@ BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
 #BuildRequires:	vala
-Requires:	glib2 >= 1:2.64
+Requires:	glib2 >= 1:2.74
 Requires:	gtk+3 >= 3.22
-Requires:	libgedit-gtksourceview >= 299.0.1
+Requires:	libgedit-gtksourceview >= 299.0.4
 Requires:	libxml2 >= 1:2.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -55,11 +55,11 @@ Summary:	Header files for Tepl library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Tepl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	amtk-devel >= 5.0
-Requires:	glib2-devel >= 1:2.64
+Requires:	glib2-devel >= 1:2.74
 Requires:	gsettings-desktop-schemas-devel
 Requires:	gtk+3-devel >= 3.22
-Requires:	libgedit-gtksourceview-devel >= 299.0.1
+Requires:	libgedit-amtk-devel >= 5.8
+Requires:	libgedit-gtksourceview-devel >= 299.0.4
 Requires:	libicu-devel
 Requires:	libxml2-devel >= 1:2.5
 # temporary? no vapi in 2.99.2
@@ -135,7 +135,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f tepl-6.lang
 %defattr(644,root,root,755)
 %doc NEWS README.md
-%attr(755,root,root) %{_libdir}/libtepl-6.so.3
+%attr(755,root,root) %{_libdir}/libtepl-6.so.4
 %{_libdir}/girepository-1.0/Tepl-6.typelib
 
 %files devel
