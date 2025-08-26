@@ -27,7 +27,7 @@ BuildRequires:	meson >= 0.64
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	rpmbuild(macros) >= 2.042
 #BuildRequires:	vala
 Requires:	glib2 >= 1:2.74
 Requires:	gtk+3 >= 3.22
